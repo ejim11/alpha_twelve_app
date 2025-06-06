@@ -1,6 +1,37 @@
+import 'package:alpha_twelve_app/screens/tabs.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+// choosing a color scheme for light mode
+var kColorScheme = ColorScheme.fromSeed(
+  seedColor: Colors.white,
+  surface: Colors.white,
+  onSurface: Colors.black,
+  primary: const Color.fromRGBO(96, 181, 255, 1),
+  onPrimary: Colors.white,
+  primaryContainer: const Color.fromRGBO(246, 245, 248, 1),
+  onPrimaryContainer: const Color.fromRGBO(51, 65, 85, 1),
+);
+
+// choosing a color scheme for dark mode
+var kDarkColorScheme = ColorScheme.fromSeed(
+  brightness: Brightness.dark,
+  seedColor: Colors.black,
+  surface: const Color.fromRGBO(51, 65, 85, 1),
+  onSurface: Colors.white,
+  primary: const Color.fromRGBO(96, 181, 255, 1),
+  onPrimary: Colors.white,
+  primaryContainer: const Color.fromRGBO(35, 35, 35, 1),
+  onPrimaryContainer: Colors.white,
+);
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]).then((fn) {});
+
   runApp(const MyApp());
 }
 
@@ -11,11 +42,19 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+      title: 'Alpha Twelve App',
+      darkTheme: ThemeData.dark().copyWith(
+        colorScheme: kDarkColorScheme,
+        textTheme: GoogleFonts.ibmPlexSansTextTheme(ThemeData.dark().textTheme),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      theme: ThemeData().copyWith(
+        colorScheme: kColorScheme,
+        textTheme: GoogleFonts.ibmPlexSansTextTheme(
+          ThemeData.light().textTheme,
+        ),
+      ),
+      themeMode: ThemeMode.light,
+      home: const TabsScreen(),
     );
   }
 }
