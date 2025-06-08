@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class Home extends StatelessWidget {
-  const Home({super.key});
+class FavouriteScreen extends StatelessWidget {
+  const FavouriteScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -9,7 +9,7 @@ class Home extends StatelessWidget {
       color: Theme.of(context).colorScheme.surface,
       child: Center(
         child: Text(
-          'Ejim',
+          'Favorite',
           style: Theme.of(context).textTheme.bodyMedium!.copyWith(
             color: Theme.of(context).colorScheme.onSurface,
           ),
