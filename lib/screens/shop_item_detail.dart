@@ -1,28 +1,110 @@
+import 'package:alpha_twelve_app/models/cart_item.dart';
 import 'package:alpha_twelve_app/models/shop_item.dart';
+import 'package:alpha_twelve_app/providers/cart_provider.dart';
+import 'package:alpha_twelve_app/providers/favourite_item_provider.dart';
 import 'package:alpha_twelve_app/widgets/home/address_and_searchbox_container.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:toastification/toastification.dart';
 import 'package:transparent_image/transparent_image.dart';
 
-class ShopItemDetail extends StatefulWidget {
+class ShopItemDetail extends ConsumerWidget {
   const ShopItemDetail({super.key, required this.shopItem});
 
   final ShopItem shopItem;
 
   @override
-  State<ShopItemDetail> createState() {
-    return _ShopItemDetailState();
-  }
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final favouriteShopItems = ref.watch(favouriteShopItemsProvider);
 
-class _ShopItemDetailState extends State<ShopItemDetail> {
-  @override
-  Widget build(BuildContext context) {
+    bool isFavourite = favouriteShopItems.contains(shopItem);
+
     double safeAreaTopPadding = MediaQuery.of(context).padding.top;
 
-    return Container(
-      color: Theme.of(context).colorScheme.surface,
-      child: SingleChildScrollView(
+    void addItemTocart(CartItem item) {
+      ref.read(cartProvider.notifier).addItem(item);
+      toastification.show(
+        context: context,
+        type: ToastificationType.success,
+        style: ToastificationStyle.minimal,
+        closeButton: ToastCloseButton(
+          buttonBuilder: (context, onClose) => IconButton(
+            onPressed: onClose,
+            visualDensity: VisualDensity.compact,
+            icon: Icon(
+              Icons.close,
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
+          ),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Color.fromRGBO(0, 0, 0, 0.15),
+            offset: const Offset(0, 16),
+            blurRadius: 24,
+            spreadRadius: 0,
+          ),
+        ],
+        borderRadius: BorderRadius.circular(8),
+        // borderSide: BorderSide(),
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        title: Text(
+          "Item has been added to cart",
+          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+            color: Theme.of(context).colorScheme.onSurface,
+          ),
+        ),
+        alignment: Alignment.topCenter,
+        autoCloseDuration: const Duration(seconds: 3),
+      );
+    }
+
+    void addItemToFavourites(ShopItem item) {
+      ref
+          .read(favouriteShopItemsProvider.notifier)
+          .toggleShopItemFavouriteStatus(item);
+      toastification.show(
+        context: context,
+        type: ToastificationType.success,
+        style: ToastificationStyle.minimal,
+        closeButton: ToastCloseButton(
+          buttonBuilder: (context, onClose) => IconButton(
+            onPressed: onClose,
+            visualDensity: VisualDensity.compact,
+            icon: Icon(
+              Icons.close,
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
+          ),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Color.fromRGBO(0, 0, 0, 0.15),
+            offset: const Offset(0, 16),
+            blurRadius: 24,
+            spreadRadius: 0,
+          ),
+        ],
+        borderRadius: BorderRadius.circular(8),
+        // borderSide: BorderSide(),
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        title: Text(
+          isFavourite
+              ? "Item has been removed favourites"
+              : "Item has been added to favourites",
+          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+            color: Theme.of(context).colorScheme.onSurface,
+          ),
+        ),
+        alignment: Alignment.topCenter,
+        autoCloseDuration: const Duration(seconds: 3),
+      );
+    }
+
+    return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      body: SingleChildScrollView(
         child: Container(
           color: Theme.of(context).colorScheme.surface,
           padding: EdgeInsets.only(top: safeAreaTopPadding),
@@ -43,7 +125,7 @@ class _ShopItemDetailState extends State<ShopItemDetail> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Hero(
-                      tag: widget.shopItem.name,
+                      tag: shopItem.name,
                       child: Stack(
                         children: [
                           Positioned(
@@ -62,7 +144,7 @@ class _ShopItemDetailState extends State<ShopItemDetail> {
                                 height: 200,
                                 width: double.infinity,
                                 placeholder: MemoryImage(kTransparentImage),
-                                image: AssetImage(widget.shopItem.image),
+                                image: AssetImage(shopItem.image),
                               ),
                             ),
                           ),
@@ -78,9 +160,15 @@ class _ShopItemDetailState extends State<ShopItemDetail> {
                                   Theme.of(context).colorScheme.surface,
                                 ),
                               ),
-                              color: Theme.of(context).colorScheme.onSurface,
-                              onPressed: () {},
-                              icon: Icon(FontAwesomeIcons.heart),
+                              color: isFavourite
+                                  ? Colors.red
+                                  : Theme.of(context).colorScheme.onSurface,
+                              onPressed: () {
+                                addItemToFavourites(shopItem);
+                              },
+                              icon: isFavourite
+                                  ? Icon(FontAwesomeIcons.solidHeart)
+                                  : Icon(FontAwesomeIcons.heart),
                             ),
                           ),
                         ],
@@ -88,7 +176,7 @@ class _ShopItemDetailState extends State<ShopItemDetail> {
                     ),
                     const SizedBox(height: 10),
                     Text(
-                      widget.shopItem.name,
+                      shopItem.name,
                       textAlign: TextAlign.start,
                       style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                         color: Theme.of(context).colorScheme.onSurface,
@@ -98,7 +186,7 @@ class _ShopItemDetailState extends State<ShopItemDetail> {
                     ),
                     const SizedBox(height: 5.17),
                     Text(
-                      '\$${widget.shopItem.price.toStringAsFixed(2)}',
+                      '\$${shopItem.price.toStringAsFixed(2)}',
                       style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                         color: Theme.of(context).colorScheme.onSurface,
                         fontSize: 32.75,
@@ -112,7 +200,7 @@ class _ShopItemDetailState extends State<ShopItemDetail> {
                         color: Color.fromRGBO(153, 153, 153, 1),
                       ),
                     ),
-                    for (String text in widget.shopItem.description)
+                    for (String text in shopItem.description)
                       Padding(
                         padding: const EdgeInsets.only(
                           left: 10,
@@ -146,7 +234,17 @@ class _ShopItemDetailState extends State<ShopItemDetail> {
                       ),
                     SizedBox(height: 20),
                     FilledButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        addItemTocart(
+                          CartItem(
+                            name: shopItem.name,
+                            image: shopItem.image,
+                            quantity: 1,
+                            inStock: true,
+                            price: shopItem.price,
+                          ),
+                        );
+                      },
                       style: ButtonStyle(
                         minimumSize: WidgetStateProperty.all(
                           const Size(double.infinity, 48),
