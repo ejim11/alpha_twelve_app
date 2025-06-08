@@ -1,6 +1,7 @@
 import 'package:alpha_twelve_app/screens/tabs/tabs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 // choosing a color scheme for light mode
@@ -32,7 +33,7 @@ void main() {
     DeviceOrientation.portraitUp,
   ]).then((fn) {});
 
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
