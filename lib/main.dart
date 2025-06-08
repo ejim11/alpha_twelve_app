@@ -1,4 +1,4 @@
-import 'package:alpha_twelve_app/screens/tabs.dart';
+import 'package:alpha_twelve_app/screens/tabs/tabs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
