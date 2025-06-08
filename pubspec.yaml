@@ -39,6 +39,9 @@ dependencies:
   feather_icons: ^1.2.0
   transparent_image: ^2.0.1
   font_awesome_flutter: ^10.8.0
+  flutter_riverpod: ^2.6.1
+  toastification: ^3.0.3
+  intl: ^0.20.2
 
 dev_dependencies:
   flutter_test:
@@ -73,6 +76,7 @@ flutter:
     - assets/shop-items/apple-iPhone-16-128GB-Teal.png
     - assets/shop-items/Google-Pixel-9A-128GB-Iris.png
     - assets/shop-items/M4-Macbook-Air-13-256GB-Sky-blue.png
+    - assets/cart/delete-icon.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
