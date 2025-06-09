@@ -153,8 +153,8 @@ The app has been tested on:
 | ![Screenshot 1](assets/screenshots/sc-1.png) | ![Screenshot 2](assets/screenshots/sc-2.png) | ![Screenshot 3](assets/screenshots/sc-3.png) |
 
 | Cart Management                              | Empty cart                                   |
-| -------------------------------------------- | -------------------------------------------- | --- |
-| ![Screenshot 5](assets/screenshots/sc-5.png) | ![Screenshot 7](assets/screenshots/sc-7.png) | -   |
+| -------------------------------------------- | -------------------------------------------- |
+| ![Screenshot 5](assets/screenshots/sc-5.png) | ![Screenshot 7](assets/screenshots/sc-7.png) |
 
 ## 🔧 Troubleshooting
 
