@@ -148,13 +148,13 @@ The app has been tested on:
 
 ## 📸 Screenshots
 
-| Home Screen                                  | Item Details                                 | Cart Screen                                  | Toast Notification                           |
-| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
-| ![Screenshot 1](assets/screenshots/sc-1.png) | ![Screenshot 2](assets/screenshots/sc-2.png) | ![Screenshot 3](assets/screenshots/sc-3.png) | ![Screenshot 4](assets/screenshots/sc-4.png) |
+| Home Screen                                  | Item Details                                 | Item Details (favourite item chosen)         |
+| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
+| ![Screenshot 1](assets/screenshots/sc-1.png) | ![Screenshot 2](assets/screenshots/sc-2.png) | ![Screenshot 3](assets/screenshots/sc-3.png) |
 
-| Cart Management                              | Item Grid                                    | Search & Filter                              | Navigation |
-| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- | ---------- |
-| ![Screenshot 5](assets/screenshots/sc-5.png) | ![Screenshot 6](assets/screenshots/sc-6.png) | ![Screenshot 7](assets/screenshots/sc-7.png) | -          |
+| Cart Management                              | Empty cart                                   |
+| -------------------------------------------- | -------------------------------------------- | --- |
+| ![Screenshot 5](assets/screenshots/sc-5.png) | ![Screenshot 7](assets/screenshots/sc-7.png) | -   |
 
 ## 🔧 Troubleshooting
 
