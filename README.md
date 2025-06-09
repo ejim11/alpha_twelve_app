@@ -121,24 +121,6 @@ flutter:
     - assets/images/sample.png
 ```
 
-## 🏗 Project Structure
-
-```
-alpha_twelve_app/
-├── lib/
-│   ├── widgets/
-│   │   ├── ShopItemDetail.dart
-│   │   ├── CartScreen.dart
-│   │   └── AddressAndSearchBoxContainer.dart
-│   ├── providers/
-│   └── main.dart
-├── assets/
-│   ├── images/
-│   └── screenshots/
-├── android/
-└── pubspec.yaml
-```
-
 ## 🧪 Testing
 
 The app has been tested on:
